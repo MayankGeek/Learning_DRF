@@ -8,6 +8,14 @@ class EmployeeSerializer(serializers.Serializer):
     password=serializers.CharField(max_length=200)
     designation=serializers.CharField(max_length=200)
 
+    def create(self,validated_data):
+        return Employee.objects.create(**validated_data)
+
+    def update(self,employee,validated_data):
+        newemployee=employee(**validated_data)
+        newemployee.id=employee.id
+        return employee.id
+
 class UserSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=150)
     is_active = serializers.BooleanField(default=True)
